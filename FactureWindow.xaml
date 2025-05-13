@@ -1,0 +1,82 @@
+﻿<Window x:Class="Infotols.FactureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Infotols"
+        mc:Ignorable="d"
+        Title="Gestion des Factures" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Titre -->
+        <TextBlock Text="Gestion des Factures"
+                   FontSize="20" FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,10" />
+
+        <!-- Formulaire -->
+        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Client :" Width="100"/>
+                <ComboBox Name="ClientComboBox" Width="200"/>
+                <Label Content="" Width="250"/>
+                <DatePicker x:Name="DateFacturePicker" Width="200"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Statut :" Width="100"/>
+                <ComboBox Name="StatutComboBox" Width="200">
+                    <ComboBoxItem Content="Non Payé"/>
+                    <ComboBoxItem Content="Payé"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Produit :" Width="100"/>
+                <ComboBox Name="ProduitComboBox" Width="200"/>
+                <Label Content="Quantité :" Width="100" Margin="10,0,0,0"/>
+                <TextBox Name="QuantiteTextBox" Width="100"/>
+                <Button Content="Ajouter au panier" Margin="10,0,0,0" Click="AjouterProduitButton_Click"/>
+            </StackPanel>
+
+            <DataGrid Name="ProduitsDataGrid" AutoGenerateColumns="False" Height="120" Margin="0,10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Produit" Binding="{Binding Produit}" Width="*"/>
+                    <DataGridTextColumn Header="Quantité" Binding="{Binding Quantite}" Width="100"/>
+                    <DataGridTextColumn Header="Prix Unitaire" Binding="{Binding PrixUnitaire}" Width="120"/>
+                    <DataGridTextColumn Header="Montant" Binding="{Binding Montant}" Width="120"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Total :" Width="100"/>
+                <TextBox Name="TotalTextBox" Width="100" IsReadOnly="True"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Liste des factures existantes -->
+        <GroupBox Header="Factures existantes" Grid.Row="1">
+            <DataGrid Name="FacturesDataGrid" AutoGenerateColumns="False" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding InvoiceId}" Width="50"/>
+                    <DataGridTextColumn Header="Client" Binding="{Binding ClientName}" Width="200"/>
+                    <DataGridTextColumn Header="Date" Binding="{Binding InvoiceDate}" Width="150"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding Total}" Width="100"/>
+                    <DataGridTextColumn Header="Statut" Binding="{Binding Status}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- Boutons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Ajouter" Width="100" Margin="5" Click="EnregistrerFactureButton_Click"/>
+            <Button Content="Modifier" Width="100" Margin="5" Click="ModifierButton_Click"/>
+            <Button Content="Supprimer" Width="100" Margin="5" Click="SupprimerFactureButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
